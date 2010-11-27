@@ -5,5 +5,7 @@ SampleApp::Application.routes.draw do
   get "pages/contact"
   
   get "pages/about"
+  
+  root :to => 'pages#home'
 
   end
