@@ -1,5 +1,7 @@
 SampleApp::Application.routes.draw do
   
+  get "users/new"
+
   #get "pages/home"
   #match '/', :to => 'pages#home' --- assigned to root
 
