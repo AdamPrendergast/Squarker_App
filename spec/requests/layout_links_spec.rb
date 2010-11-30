@@ -1,9 +1,10 @@
 require 'spec_helper'
 
-describe "LayoutLinks" do
-
   describe "LayoutLinks" do
+    #render_views
   
+    # Integration test to check routes
+    
     it "should have a Home page at '/'" do
       get '/'
       response.should have_selector('title', :content => "Home")
@@ -23,6 +24,33 @@ describe "LayoutLinks" do
       get '/help'
       response.should have_selector('title', :content => "Help")
     end
+   
+    it "should have a Signup page at '/signup'" do
+      get '/signup'
+      response.should have_selector('title', :content => "Sign up")
+    end
     
-  end 
-end
+    # Integration test to check links
+    
+    it "should have the right links on the layout" do
+      visit root_path
+      #save_and_open_page
+      
+      click_link "Home"
+      response.should have_selector('title', :content => "Home")
+      
+      click_link "About"
+      response.should have_selector('title', :content => "About")
+      
+      click_link "Contact"
+      response.should have_selector('title', :content => "Contact")
+      
+      click_link "Help"
+      response.should have_selector('title', :content => "Help")
+      
+      # The sign up test fails. does not find the link text in home.html.erb when it is rendered in <%= yield %>
+      click_link "Signup"
+      response.should have_selector('title', :content => "Sign up")
+    end
+      
+  end
