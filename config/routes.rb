@@ -1,9 +1,5 @@
 SampleApp::Application.routes.draw do
-  
-  #get "users/new"
-
-  #get "pages/home"
-  #match '/', :to => 'pages#home' --- assigned to root
+  resources :users
 
   match '/contact', :to => 'pages#contact'
   
@@ -16,3 +12,14 @@ SampleApp::Application.routes.draw do
   root :to => 'pages#home'
 
   end
+  
+  
+  
+  
+  
+  
+  # -- old roots --
+  #get "users/new"
+
+  #get "pages/home"
+  #match '/', :to => 'pages#home' --- assigned to root
