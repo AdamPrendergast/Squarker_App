@@ -1,8 +1,7 @@
 module SessionsHelper
 
   def sign_in(user)
-    session[:current_user_id] = user.id
-    session[:current_user_salt] = user.salt
+    session[:current_user_id] = [user.id, user.salt]
     self.current_user = user    # is an assignment. 
   end
   
@@ -20,7 +19,6 @@ module SessionsHelper
   
   def sign_out
     session[:current_user_id] = nil
-    session[:current_user_salt] = nil
     self.current_user = nil
   end
   
@@ -31,7 +29,7 @@ module SessionsHelper
     end
     
     def session_id
-      [session[:current_user_id], session[:current_user_salt]] || [nil, nil]
+      session[:current_user_id] || [nil, nil]
     end
 
 end
