@@ -14,8 +14,29 @@ describe UsersController do
   	it "should have the right title" do
       get :new
       response.should have_selector("title", 
-      								:content => "Ruby on Rails Tutorial Sample App | Sign up")
+      								:content => "Sign up")
     end
+    
+    it "should have a name field" do
+      get :new
+      response.should have_selector("input[name='user[name]'][type='text']")
+    end
+    
+    it "should have an email field" do
+      get :new
+      response.should have_selector("input[name='user[email]'][type='text']")
+    end
+    
+    it "should have a password field" do
+      get :new
+      response.should have_selector("input[name='user[password]'][type='password']")
+    end
+    
+    it "should have a password confirmation field" do
+      get :new
+      response.should have_selector("input[name='user[password_confirmation]'][type='password']")
+    end
+    
   end
   
   
@@ -45,6 +66,12 @@ describe UsersController do
   	    post :create, :user => @attr
   	    response.should render_template('new')
   	  end
+  	  
+  	  it "should display an error messages" do
+  	    post :create, :user => @attr
+  	    response.should have_selector("div[id='error_explanation']")
+  	  end
+  	  
     end
     
     describe "success" do
@@ -71,6 +98,11 @@ describe UsersController do
       it "should have a welcome message" do
         post :create, :user => @attr
         flash[:success].should =~ /welcome to the sample app/i
+      end
+      
+      it "should sign the new user in" do
+        post :create, :user => @attr
+        controller.should be_signed_in
       end
       
     end

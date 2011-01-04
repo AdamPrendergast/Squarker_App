@@ -47,6 +47,14 @@ class User < ActiveRecord::Base
     return user if user.has_password?(submitted_password)
     return nil
   end
+  
+  # authenticate_with_salt method added for signing uses in and persisting via a cookie.
+  # Ternary operator. If user is true and (&&) user_salt == cookie_salt return user else return nil.
+  
+  def self.authenticate_with_salt(id, cookie_salt)
+    user = find_by_id(id)
+    (user && user.salt == cookie_salt) ? user : nil
+  end
     
   private
   
