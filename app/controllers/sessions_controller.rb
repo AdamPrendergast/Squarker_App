@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  # ssl_required :new, :create # requires a ssl setup with server to work
   
   def new
     @title = "Sign in"
