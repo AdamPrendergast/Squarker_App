@@ -1,8 +1,8 @@
 module SessionsHelper
 
   def sign_in(user)
-    cookies.permanent.signed[:remember_token] = [user.id, user.salt]
-    self.current_user = user
+    session[:current_user_id] = [user.id, user.salt]
+    self.current_user = user    # is an assignment. 
   end
   
   def current_user=(user)      # Like a ruby setter perhaps?
@@ -18,7 +18,7 @@ module SessionsHelper
   end
   
   def sign_out
-    cookies.delete(:remember_token)
+    session[:current_user_id] = nil
     self.current_user = nil
   end
   
@@ -28,8 +28,8 @@ module SessionsHelper
       User.authenticate_with_salt(*remember_token)     # * to allow a method that is expecting more than one variable on accept an array
     end
     
-    def remember_token
-      cookies.signed[:remember_token] || [nil, nil]
+    def session_id
+      session[:current_user_id] || [nil, nil]
     end
 
 end
