@@ -10,7 +10,7 @@ module SessionsHelper
   end
   
   def current_user
-    @current_user ||= user_from_remember_token    # ||= or equals
+    @current_user ||= user_from_session_id    # ||= or equals
   end
   
   def signed_in?
@@ -24,8 +24,8 @@ module SessionsHelper
   
   private
   
-    def user_from_remember_token
-      User.authenticate_with_salt(*remember_token)     # * to allow a method that is expecting more than one variable on accept an array
+    def user_from_session_id
+      User.authenticate_with_salt(*session_id)     # * to allow a method that is expecting more than one variable on accept an array
     end
     
     def session_id

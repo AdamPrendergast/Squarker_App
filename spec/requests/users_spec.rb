@@ -57,11 +57,7 @@ describe "Users" do
    describe "success" do
    
      it "should sign in a valid user" do
-       @user = Factory(:user)
-       visit signin_path
-       fill_in "Email",    :with => @user.email
-       fill_in "Password", :with => @user.password
-       click_button
+       integration_sign_in(Factory(:user))
        controller.should be_signed_in
        response.should render_template('users/show')
        click_link "Sign out"

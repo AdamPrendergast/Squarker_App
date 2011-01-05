@@ -53,7 +53,7 @@ require 'spec_helper'
       response.should have_selector('title', :content => "Sign up")
     end
     
-    # Changing layout links depending on whether a user is signed in or not
+    # Test layout links depending on whether a user is signed in or not
     
     describe "when not signed in" do
       
@@ -68,10 +68,7 @@ require 'spec_helper'
     
       before(:each) do
         @user = Factory(:user)
-        visit signin_path
-        fill_in :email,    :with => @user.email
-        fill_in :password, :with => @user.password
-        click_button
+        integration_sign_in(@user)
       end
       
       it "should have a signout link" do
