@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     if @user.save
       sign_in @user
       flash[:success] = 'Welcome to the Sample App!'
-      redirect_to user_path(@user) #could I the shorter redirect_to @user
+      redirect_to user_path(@user) # could I use the shorter redirect_to @user
     else
       @title = 'Sign up'
       @user.password = ""
