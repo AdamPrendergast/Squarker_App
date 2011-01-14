@@ -36,6 +36,9 @@ require 'spec_helper'
       visit root_path
       #save_and_open_page
       
+      click_link "Signup"
+      response.should have_selector('title', :content => "Sign up")
+      
       click_link "Home"
       response.should have_selector('title', :content => "Home")
       
@@ -47,10 +50,6 @@ require 'spec_helper'
       
       click_link "Help"
       response.should have_selector('title', :content => "Help")
-      
-      # The sign up test fails. does not find the link text in home.html.erb when it is rendered in <%= yield %>
-      click_link "Signup"
-      response.should have_selector('title', :content => "Sign up")
     end
     
     # Test layout links depending on whether a user is signed in or not
@@ -80,7 +79,13 @@ require 'spec_helper'
       it "should have a profile link" do
         visit root_path
         response.should have_selector("a", :href => user_path(@user),
-                                           :content => "My profile")
+                                           :content => "Profile")
+      end
+      
+      it "should have a settings link" do
+        visit root_path
+        response.should have_selector("a", :href => edit_user_path(@user),
+                                           :content => "Settings")
       end
     
     end

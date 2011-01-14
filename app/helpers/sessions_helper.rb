@@ -21,6 +21,21 @@ module SessionsHelper
     session[:current_user_id] = nil
     self.current_user = nil
   end
+    
+  def current_user?(user)
+    user ==  current_user
+  end
+  
+  def deny_access
+    # Flash message is passed as an options hash to the redirect_to function
+    store_location
+    redirect_to signin_path, :notice => "Please signin to access this page."
+  end
+  
+  def redirect_back_or(default)
+    redirect_to(session[:return_to] || default)
+    clear_return_to
+  end
   
   private
   
@@ -30,6 +45,14 @@ module SessionsHelper
     
     def session_id
       session[:current_user_id] || [nil, nil]
+    end
+
+    def store_location
+      session[:return_to] = request.fullpath
+    end
+    
+    def clear_return_to
+      session[:return_to] = nil
     end
 
 end

@@ -192,3 +192,15 @@ div.field, div.actions {
   font-size: 12px;
   list-style: square;
 }
+
+
+/* Users index */
+
+ul.users {
+  margin-top: 1em;
+}
+
+.users li {
+  padding: 1em;
+  list-style: none;
+}
