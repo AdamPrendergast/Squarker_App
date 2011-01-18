@@ -268,3 +268,10 @@ ul.users {
   padding: 1em;
   list-style: none;
 }
+
+
+/* Micropost Countdown */
+
+span.micropost_countdown {
+  border-style: none;
+}
