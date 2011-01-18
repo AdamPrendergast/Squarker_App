@@ -1,7 +1,5 @@
-<h1>Squark your friends...</h1>
-
-<p>
-  ...let them know about the cool things your doing... and they're not!
-</p>
-
-<%= link_to "Signup", signup_path, :class => "signup_button round" %>
+<% if signed_in? %>
+  <%= render 'shared/signed_in_homepage' %>
+<% else %>
+  <%= render 'shared/signed_out_homepage' %>
+<% end %>

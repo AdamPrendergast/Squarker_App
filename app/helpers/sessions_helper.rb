@@ -26,6 +26,10 @@ module SessionsHelper
     user ==  current_user
   end
   
+  def authenticate
+    deny_access unless signed_in?
+  end
+  
   def deny_access
     # Flash message is passed as an options hash to the redirect_to function
     store_location
