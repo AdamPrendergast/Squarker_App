@@ -1,0 +1,9 @@
+<h1><%= @user.name %>'s Microposts</h1>
+
+<%= will_paginate %>
+
+<table class="microposts">
+    <%= render @microposts %>
+</table>
+
+<%= will_paginate %>

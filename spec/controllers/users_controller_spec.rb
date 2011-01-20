@@ -260,6 +260,41 @@ describe UsersController do
       response.should have_selector("span.content", :content => mp2.content)
     end
     
+    it "should paginate for many microposts" do
+      @microposts = []
+      31.times do
+        @microposts << Factory(:micropost, :user => @user) 
+      end
+      get :show, :id => @user
+      response.should have_selector("div.pagination")
+      response.should have_selector("span.disabled", :content => "Previous")
+      response.should have_selector("a", :href => "/users/#{@user.id}?page=2",
+                                         :content => "Next")
+      response.should have_selector("a", :href => "/users/#{@user.id}?page=2",
+                                         :content => "2")
+    end
+    
+    describe "for signed in user" do
+    
+      before(:each) do
+        test_sign_in(@user)
+        @other_user = Factory(:user, :email => "other@example.com")
+      end
+      
+      it "should display delete links for user microposts" do
+        mp1 = Factory(:micropost, :user => @user)
+        get :show, :id => @user
+        response.should have_selector("td.delete_micropost", :content => "Delete")
+      end
+      
+      it "should not display delete links for other user's microposts" do
+        mp1 = Factory(:micropost, :user => @other_user)
+        get :show, :id => @other_user
+        response.should_not have_selector("td.delete_micropost", :content => "Delete")
+      end
+     
+    end
+    
   end
   
 ### GET 'edit'
