@@ -44,6 +44,39 @@ describe Micropost do
     it "should reject long content" do
       @user.microposts.build(:content => "a" * 141).should_not be_valid
     end
+  end
+  
+
+### FROM_USERS_FOLLOWED_BY
+
+  describe "from_users_followed_by" do
+  
+    before(:each) do
+      @other_user = Factory(:user, :email => Factory.next(:email))
+      @third_user = Factory(:user, :email => Factory.next(:email))
+      
+      @user_post  = @user.microposts.create!(:content => "Foo")
+      @other_post = @other_user.microposts.create!(:content => "Bar")
+      @third_user = @third_user.microposts.create!(:content => "Baz")
+      
+      @user.follow!(@other_user)
+    end
+    
+    it "should have a from_users_followed_by method" do
+      Micropost.should respond_to(:from_users_followed_by)
+    end
+    
+    it "should include the followed user's microposts" do
+      Micropost.from_users_followed_by(@user).should include(@other_post)
+    end
+    
+    it "should include the user's own microposts" do
+      Micropost.from_users_followed_by(@user).should include(@user_post)
+    end
+    
+    it "should not include an unfollowed user's micropost" do
+      Micropost.from_users_followed_by(@user).should_not include(@third_post)
+    end
   
   end
 

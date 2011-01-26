@@ -142,7 +142,6 @@ td.sidebar {
 
 img.gravatar {
   border: 1px solid #999;
-  margin-bottom: -15px;
 }
 
 
@@ -181,25 +180,6 @@ table.microposts tr td.micropost span.timestamp {
   color: #666;
 }
 
-div.user_info img {
-  border: none;
-  padding-right: 0.1em;
-}
-
-div.user_info a {
-  position: absolute;
-  text-decoration: none;
-}
-
-div.user_info span.user_name {
- 
-}
-
-div.user_info span.microposts {
-  position: absolute; top: 16px; left: 36px;
-  font-size: 80%;
-}
-
 form.new_micropost {
   margin-bottom: 2em;
 }
@@ -207,6 +187,26 @@ form.new_micropost {
 form.new_micropost textarea {
   height: 4em;
   margin-bottom: 0;
+}
+
+
+/* User side bar */
+
+div.user_info img {
+  border: none;
+  padding-right: 0.1em;
+}
+
+div.user_info a {
+  text-decoration: none;
+}
+
+div.user_info span.user_name {
+  position: absolute;
+}
+
+div.user_info span.microposts {
+  font-size: 80%;
 }
 
 
@@ -275,3 +275,22 @@ ul.users {
 span.micropost_countdown {
   border-style: none;
 }
+
+
+/* User Show page */
+
+h1.user_name {
+  margin-bottom: 1em; 
+}
+
+h1.user_name img.gravatar {
+  vertical-align: middle;
+}
+
+
+/* User Index/Follow Pages */
+
+ul.users img.gravatar {
+  vertical-align: middle;
+}
+

@@ -21,8 +21,9 @@ describe PagesController do
   	describe "for signed in users" do
   	  
   	  before(:each) do
-        @user = Factory(:user)
-        test_sign_in(@user)
+        @user = test_sign_in(Factory(:user))
+        other_user = Factory(:user, :email => "otheruser@example.com")
+        other_user.follow!(@user)
       end
       
       it "should have the singular display for one user micropost" do
@@ -50,6 +51,14 @@ describe PagesController do
                                            :content => "Next")
         response.should have_selector("a", :href => "/?page=2",
                                          :content => "2")
+      end
+      
+      it "should have the right following/follower count" do
+        get :home
+        response.should have_selector("a", :href => following_user_path(@user),
+                                           :content => "0 following")
+        response.should have_selector("a", :href => followers_user_path(@user),
+                                           :content => "1 follower")
       end
       
   	end
