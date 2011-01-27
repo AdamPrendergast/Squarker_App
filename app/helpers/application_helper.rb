@@ -2,7 +2,7 @@ module ApplicationHelper
 
   # Title not provided helper
   def title
-    base_title = "Ruby on Rails Tutorial Sample App"
+    base_title = "Squarker"
     if @title.nil?
       base_title
     else
